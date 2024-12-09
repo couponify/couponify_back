@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
 import * as Joi from 'joi';
 
 @Module({
@@ -29,6 +30,7 @@ import * as Joi from 'joi';
         synchronize: true,
       }),
     }),
+    UserModule,
   ],
 })
 export class AppModule {}
