@@ -12,5 +12,5 @@ export class User {
   nickname: string;
 
   @Column()
-  imageUrl: string;
+  profileImage: string;
 }
