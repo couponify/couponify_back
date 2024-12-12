@@ -16,6 +16,7 @@ import * as Joi from 'joi';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_DATABASE: Joi.string().required(),
+        HASH_ROUND: Joi.number().required(),
       }),
     }),
     TypeOrmModule.forRootAsync({
