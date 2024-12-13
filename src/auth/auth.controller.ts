@@ -28,9 +28,9 @@ export class AuthController {
     return await this.authService.signup(signupRequest, image);
   }
 
-  @Public() 
+  @Public()
   @Post('login')
-  @HttpCode(HttpStatus.CREATED)
+  @HttpCode(HttpStatus.OK)
   async login(@Body() loginRequest: LoginRequestDto) {
     return await this.authService.login(loginRequest);
   }
