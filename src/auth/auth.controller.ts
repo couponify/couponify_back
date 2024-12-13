@@ -12,6 +12,8 @@ import { SignUpRequestDto } from './dto/request/signup-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { LoginRequestDto } from './dto/request/login-request.dto';
 import { Public } from 'src/common/decorator/public.decorator';
+import { GetUser } from 'src/common/decorator/get-user.decorator';
+import { User } from 'src/user/entity/user.entity';
 
 @Controller('auth')
 export class AuthController {
@@ -33,5 +35,11 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   async login(@Body() loginRequest: LoginRequestDto) {
     return await this.authService.login(loginRequest);
+  }
+
+  @Post('withdraw')
+  @HttpCode(HttpStatus.NO_CONTENT)
+  async withdraw(@GetUser() user: User) {
+    await this.authService.withdraw(user);
   }
 }
