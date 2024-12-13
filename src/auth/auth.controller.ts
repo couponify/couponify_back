@@ -10,6 +10,7 @@ import {
 import { AuthService } from './auth.service';
 import { SignUpRequestDto } from './dto/request/signup-request.dto';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { LoginRequestDto } from './dto/request/login-request.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,5 +24,11 @@ export class AuthController {
     @UploadedFile() image: Express.Multer.File,
   ) {
     return await this.authService.signup(signupRequest, image);
+  }
+
+  @Post('login')
+  @HttpCode(HttpStatus.OK)
+  async login(@Body() loginRequest: LoginRequestDto) {
+    return await this.authService.login(loginRequest);
   }
 }
