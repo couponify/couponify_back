@@ -79,9 +79,16 @@
       "**/*.(t|j)s"
     ],
     "coveragePathIgnorePatterns": [
+      "main.ts",
       "module.ts",
       "dto.ts",
-      "entity.ts"
+      "entity.ts",
+      "exception.ts",
+      "filter.ts",
+      "pipe.ts",
+      "guard.ts",
+      "interface.ts",
+      "decorator.ts"
     ],
     "coverageDirectory": "./coverage",
     "testEnvironment": "node",
