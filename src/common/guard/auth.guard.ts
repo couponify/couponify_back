@@ -1,5 +1,5 @@
 import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
-import { JwtService, TokenExpiredError } from '@nestjs/jwt';
+import { JwtService } from '@nestjs/jwt';
 import { IsEmptyTokenExceotion } from 'src/exception/custom/is-empty-token.exception';
 import { IsNotBearerTokenException } from 'src/exception/custom/is-not-bearer-token.exception';
 import { TokenInterface } from '../interface/token.interface';
@@ -7,10 +7,12 @@ import { TokenExpiredException } from 'src/exception/custom/token-expired.except
 import { IsNotAccessTokenException } from 'src/exception/custom/is-not-access-token.exception';
 import { Reflector } from '@nestjs/core';
 import { Public } from '../decorator/public.decorator';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(
+    private readonly userService: UserService,
     private readonly jwtService: JwtService,
     private readonly reflector: Reflector,
   ) {}
@@ -47,7 +49,7 @@ export class AuthGuard implements CanActivate {
         },
       );
 
-      req.user = passedToken.email;
+      req.user = await this.userService.findOne(passedToken.email);
     } catch (err) {
       if (err.name === 'TokenExpiredError') {
         throw new TokenExpiredException();
