@@ -80,4 +80,8 @@ export class AuthService {
       await this.tokenGenerate(user, true),
     );
   }
+
+  async withdraw(user: User) {
+    await this.userRepository.delete({ email: user.email });
+  }
 }
