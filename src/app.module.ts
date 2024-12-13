@@ -4,6 +4,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
 import * as Joi from 'joi';
+import { AuthGuard } from './common/guard/auth.guard';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -36,8 +38,15 @@ import * as Joi from 'joi';
         synchronize: true,
       }),
     }),
+    JwtModule.register({}),
     UserModule,
     AuthModule,
+  ],
+  providers: [
+    {
+      provide: 'APP_GUARD',
+      useClass: AuthGuard,
+    },
   ],
 })
 export class AppModule {}
